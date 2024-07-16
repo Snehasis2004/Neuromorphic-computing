@@ -1,35 +1,35 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from pynq.overlays.base import BaseOverlay
-from pynq.lib import Pmod_ADC, Pmod_DAC
+from pynq.lib import Pmod_ADC
 ol = BaseOverlay("base.bit")
 t=0
 dt=.1
-v=10
+v=0
 tau=10
 v_o=0
-v_t=50
+v_t=2.45
 alp=np.exp(-dt/tau)
 vs=[]
 spike_times=[]
 
 
-while t<50 :
+while t>0 :
   vs.append(v)
   v=v*alp
-  v+=5
+  v+=.05
   dac.write(v)
-  if t>=0 and t <=1.5:
-    v+=20
+  if t <=1.5 and t>=0:
+    v+=.02
     t+=3
   if t>=3 and t <=4.5:
-    v+=20
+    v+=.02
   if t>=6 and t <=7.5:
-    v+=20
+    v+=.020
   if t>=9 and t <=10.5:
-    v+=20
+    v+=.020
   if t>=11.50 and t <=13:
-    v+=20
+    v+=.020
 
   if v>v_t:
     v=0
